@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>失智症精神行為症狀 (BPSD) 數位學習與評量系統</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome 圖標庫 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts: Noto Sans TC & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;700&display=swap" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Noto Sans TC"', 'system-ui', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#f0f9ff',
+              100: '#e0f2fe',
+              500: '#0284c7',
+              600: '#0369a1',
+              700: '#075985',
+              800: '#0c4a6e',
+            },
+            tealCustom: {
+              500: '#0d9488',
+              600: '#0f766e',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* 滑順滾動與自訂滾動條 */
+    html { scroll-behavior: smooth; }
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #f1f5f9; }
+    ::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #64748b; }
+    .tab-active {
+      border-bottom: 3px solid #0284c7;
+      color: #0284c7;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 flex flex-col min-h-screen">
+
+  <!-- 頂部導覽列 -->
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('intro')">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-600 to-teal-500 flex items-center justify-center text-white shadow-md">
+            <i class="fa-solid fa-brain text-xl"></i>
+          </div>
+          <div>
+            <h1 class="font-bold text-lg text-slate-900 leading-tight">失智症精神行為症狀 (BPSD)</h1>
+            <p class="text-xs text-slate-500">互動式照顧教學與評量教室</p>
+          </div>
+        </div>
+
+        <!-- 導覽頁籤 -->
+        <nav class="hidden md:flex space-x-6 text-sm font-medium">
+          <button onclick="switchTab('intro')" id="nav-intro" class="py-5 px-1 border-b-2 border-transparent text-slate-600 hover:text-sky-600 transition">
+            <i class="fa-solid fa-book-open mr-1.5"></i>核心觀念
+          </button>
+          <button onclick="switchTab('causes')" id="nav-causes" class="py-5 px-1 border-b-2 border-transparent text-slate-600 hover:text-sky-600 transition">
+            <i class="fa-solid fa-stethoscope mr-1.5"></i>成因分析 (DEMENTIA)
+          </button>
+          <button onclick="switchTab('assessment')" id="nav-assessment" class="py-5 px-1 border-b-2 border-transparent text-slate-600 hover:text-sky-600 transition">
+            <i class="fa-solid fa-clipboard-check mr-1.5"></i>ABC評估與量表
+          </button>
+          <button onclick="switchTab('cases')" id="nav-cases" class="py-5 px-1 border-b-2 border-transparent text-slate-600 hover:text-sky-600 transition">
+            <i class="fa-solid fa-people-roof mr-1.5"></i>情境演練
+          </button>
+          <button onclick="switchTab('quiz')" id="nav-quiz" class="py-2.5 px-4 my-auto rounded-lg bg-sky-600 text-white font-semibold hover:bg-sky-700 shadow-sm transition flex items-center gap-2">
+            <i class="fa-solid fa-gamepad"></i>進入隨堂測驗
+          </button>
+        </nav>
+
+        <!-- 手機端選單按鈕 -->
+        <div class="md:hidden flex items-center">
+          <button onclick="toggleMobileMenu()" class="p-2 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100">
+            <i class="fa-solid fa-bars text-xl"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 手機版展開面板 -->
+    <div id="mobile-menu" class="hidden md:hidden border-t border-slate-200 bg-white px-4 py-3 space-y-2 text-sm font-medium">
+      <button onclick="switchTab('intro'); toggleMobileMenu();" class="block w-full text-left py-2 px-3 rounded hover:bg-slate-100">核心觀念</button>
+      <button onclick="switchTab('causes'); toggleMobileMenu();" class="block w-full text-left py-2 px-3 rounded hover:bg-slate-100">成因分析 (DEMENTIA)</button>
+      <button onclick="switchTab('assessment'); toggleMobileMenu();" class="block w-full text-left py-2 px-3 rounded hover:bg-slate-100">ABC評估與量表</button>
+      <button onclick="switchTab('cases'); toggleMobileMenu();" class="block w-full text-left py-2 px-3 rounded hover:bg-slate-100">情境演練</button>
+      <button onclick="switchTab('quiz'); toggleMobileMenu();" class="block w-full text-center py-2 px-3 rounded bg-sky-600 text-white font-bold">進入隨堂測驗</button>
+    </div>
+  </header>
+
+  <!-- 主內容容器 -->
+  <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+
+    <!-- 全局警示橫幅 -->
+    <div class="mb-8 p-4 bg-amber-50 border-l-4 border-amber-500 rounded-r-xl flex items-center justify-between shadow-sm">
+      <div class="flex items-center space-x-3">
+        <span class="text-amber-600 text-2xl"><i class="fa-solid fa-heart-pulse"></i></span>
+        <div>
+          <span class="font-bold text-amber-900">核心照護金句：</span>
+          <span class="text-amber-800 text-sm md:text-base">「所有行為先視為<span class="font-bold underline decoration-amber-500">『訊息』</span>，不要只視為『問題』；先理解『為什麼』，再決定『怎麼做』。」</span>
+        </div>
+      </div>
+      <span class="hidden lg:inline-block px-3 py-1 bg-amber-200 text-amber-800 text-xs font-bold rounded-full">非藥物優先</span>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- 頁面 1: 核心觀念 (Intro) -->
+    <!-- ============================================== -->
+    <section id="section-intro" class="page-section space-y-8">
+      <div class="bg-gradient-to-r from-sky-700 to-teal-700 text-white rounded-3xl p-8 md:p-12 shadow-lg relative overflow-hidden">
+        <div class="relative z-10 max-w-3xl space-y-4">
+          <span class="px-3 py-1 bg-white/20 rounded-full text-xs font-semibold uppercase tracking-wider">失智症臨床照護重點</span>
+          <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight">認識失智症精神行為症狀 (BPSD)</h2>
+          <p class="text-sky-100 leading-relaxed text-base md:text-lg">
+            BPSD (Behavioral and Psychological Symptoms of Dementia) 是失智症病程中常見的行為與心理症狀。照顧的關鍵不在於「壓制行為」，而是釐清行為背後未被滿足的生理需求、內心恐懼或環境壓力。
+          </p>
+          <div class="pt-2 flex flex-wrap gap-4">
+            <button onclick="switchTab('quiz')" class="px-6 py-3 bg-white text-sky-800 font-bold rounded-xl shadow hover:bg-slate-100 transition flex items-center gap-2">
+              <i class="fa-solid fa-pen-nib"></i> 開始測驗評量
+            </button>
+            <button onclick="switchTab('causes')" class="px-6 py-3 bg-sky-800/80 hover:bg-sky-800 text-white font-medium rounded-xl border border-sky-400/30 transition">
+              查看常見成因分析
+            </button>
+          </div>
+        </div>
+        <i class="fa-solid fa-puzzle-piece absolute -right-10 -bottom-10 text-9xl text-white/10 select-none"></i>
+      </div>
+
+      <!-- 四大面向互動卡片 -->
+      <div>
+        <h3 class="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2">
+          <i class="fa-solid fa-layer-group text-sky-600"></i> BPSD 四大分類型態
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <!-- 面向 1 -->
+          <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 hover:shadow-md transition">
+            <div class="w-12 h-12 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center text-xl mb-4">
+              <i class="fa-solid fa-face-frown"></i>
+            </div>
+            <h4 class="font-bold text-slate-800 text-lg mb-2">情緒與情感症狀</h4>
+            <ul class="text-sm text-slate-600 space-y-2">
+              <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-blue-500 text-xs"></i> 憂鬱、焦慮不安、恐慌</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-blue-500 text-xs"></i> 易怒、激躁反應</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-blue-500 text-xs"></i> 反覆詢問、坐立難安</li>
+            </ul>
+            <div class="mt-4 pt-3 border-t border-slate-100 text-xs text-slate-500">
+              💡 提問常代表「缺乏安全感」，先安撫情緒再轉移。
+            </div>
+          </div>
+
+          <!-- 面向 2 -->
+          <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 hover:shadow-md transition">
+            <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-xl mb-4">
+              <i class="fa-solid fa-person-walking"></i>
+            </div>
+            <h4 class="font-bold text-slate-800 text-lg mb-2">外顯行為症狀</h4>
+            <ul class="text-sm text-slate-600 space-y-2">
+              <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-emerald-500 text-xs"></i> 漫遊遊走、迷路、要求回家</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-emerald-500 text-xs"></i> 激動攻擊、抗拒照護</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-emerald-500 text-xs"></i> 囤積收集、重覆動作</li>
+            </ul>
+            <div class="mt-4 pt-3 border-t border-slate-100 text-xs text-slate-500">
+              💡 攻擊多為被動自我防禦（如害羞、水溫過冷、被催促）。
+            </div>
+          </div>
+
+          <!-- 面向 3 -->
+          <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 hover:shadow-md transition">
+            <div class="w-12 h-12 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center text-xl mb-4">
+              <i class="fa-solid fa-eye"></i>
+            </div>
+            <h4 class="font-bold text-slate-800 text-lg mb-2">思考與知覺症狀</h4>
+            <ul class="text-sm text-slate-600 space-y-2">
+              <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-purple-500 text-xs"></i> 被偷妄想（最常見）</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-purple-500 text-xs"></i> 視幻覺、聽幻覺</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-purple-500 text-xs"></i> 錯認親人或陌生人</li>
+            </ul>
+            <div class="mt-4 pt-3 border-t border-slate-100 text-xs text-slate-500">
+              💡 切忌直接爭論對錯，同理其著急與恐慌是關鍵。
+            </div>
+          </div>
+
+          <!-- 面向 4 -->
+          <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 hover:shadow-md transition">
+            <div class="w-12 h-12 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center text-xl mb-4">
+              <i class="fa-solid fa-bed"></i>
+            </div>
+            <h4 class="font-bold text-slate-800 text-lg mb-2">生理驅力症狀</h4>
+            <ul class="text-sm text-slate-600 space-y-2">
+              <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-amber-500 text-xs"></i> 日夜顛倒、黃昏症候群</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-amber-500 text-xs"></i> 暴食、偏食、異食癖</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-amber-500 text-xs"></i> 淡漠無動機、性衝動抑制弱</li>
+            </ul>
+            <div class="mt-4 pt-3 border-t border-slate-100 text-xs text-slate-500">
+              💡 淡漠並非長輩懶惰，而是大腦執行功能受損。
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 處置金字塔原則 -->
+      <div class="bg-white rounded-2xl p-8 shadow-sm border border-slate-200">
+        <h3 class="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2">
+          <i class="fa-solid fa-shield-halved text-teal-600"></i> BPSD 照護處置五部曲
+        </h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 text-center relative">
+            <span class="w-8 h-8 rounded-full bg-sky-600 text-white font-bold flex items-center justify-center mx-auto mb-2">1</span>
+            <h5 class="font-bold text-slate-800 mb-1">確保安全</h5>
+            <p class="text-xs text-slate-600">移除危險物、退半步留出口、避免多人包圍壓迫。</p>
+          </div>
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 text-center relative">
+            <span class="w-8 h-8 rounded-full bg-sky-600 text-white font-bold flex items-center justify-center mx-auto mb-2">2</span>
+            <h5 class="font-bold text-slate-800 mb-1">接納同理</h5>
+            <p class="text-xs text-slate-600">承接恐懼與著急情緒，不急於矯正事實或爭辯。</p>
+          </div>
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 text-center relative">
+            <span class="w-8 h-8 rounded-full bg-sky-600 text-white font-bold flex items-center justify-center mx-auto mb-2">3</span>
+            <h5 class="font-bold text-slate-800 mb-1">查明誘因</h5>
+            <p class="text-xs text-slate-600">評估痛覺、感染、便祕、缺水、藥物與環境壓力。</p>
+          </div>
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 text-center relative">
+            <span class="w-8 h-8 rounded-full bg-sky-600 text-white font-bold flex items-center justify-center mx-auto mb-2">4</span>
+            <h5 class="font-bold text-slate-800 mb-1">非藥物介入</h5>
+            <p class="text-xs text-slate-600">懷舊、音樂、改變光照、安排合適且有尊嚴的日常活動。</p>
+          </div>
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 text-center relative">
+            <span class="w-8 h-8 rounded-full bg-sky-600 text-white font-bold flex items-center justify-center mx-auto mb-2">5</span>
+            <h5 class="font-bold text-slate-800 mb-1">追蹤與轉介</h5>
+            <p class="text-xs text-slate-600">急性起病懷疑譫妄或安全風險高時，立即啟動醫療整合。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================== -->
+    <!-- 頁面 2: 成因分析 (Causes & DEMENTIA) -->
+    <!-- ============================================== -->
+    <section id="section-causes" class="page-section hidden space-y-8">
+      <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200">
+        <div class="max-w-3xl">
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-3">BPSD 四層成因分析與身體因素排查</h2>
+          <p class="text-slate-600 leading-relaxed text-sm sm:text-base">
+            臨床重要提醒：<strong class="text-rose-600 font-bold">當 BPSD 突然急遽惡化時，絕不可只想到「失智退化」！</strong>
+            感染、脫水、便祕、嚴重疼痛、低血糖、藥物交互作用或譫妄（Delirium）常常是誘發或激化行為的隱形兇手。
+          </p>
+        </div>
+
+        <!-- 4層架構圖 -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 my-8">
+          <div class="p-5 rounded-xl bg-rose-50 border border-rose-200">
+            <div class="text-rose-600 font-bold text-base mb-1 flex items-center gap-2">
+              <i class="fa-solid fa-heart-pulse"></i> 身體 / 腦部因素
+            </div>
+            <p class="text-xs text-rose-800 leading-normal">感染、未被察覺的骨關節疼痛、水電解質不平衡、便祕腹脹、中風與營養缺乏。</p>
+          </div>
+          <div class="p-5 rounded-xl bg-sky-50 border border-sky-200">
+            <div class="text-sky-600 font-bold text-base mb-1 flex items-center gap-2">
+              <i class="fa-solid fa-brain"></i> 心理 / 情緒因素
+            </div>
+            <p class="text-xs text-sky-800 leading-normal">喪失控制感、被忽略、過往創傷記憶喚醒、害怕親友拋棄、對環境極度焦慮。</p>
+          </div>
+          <div class="p-5 rounded-xl bg-emerald-50 border border-emerald-200">
+            <div class="text-emerald-600 font-bold text-base mb-1 flex items-center gap-2">
+              <i class="fa-solid fa-house-chimney"></i> 環境 / 刺激因素
+            </div>
+            <p class="text-xs text-emerald-800 leading-normal">噪音吵雜、夕陽西下光線昏暗、動線複雜、鏡面引發倒影錯認、過度冷熱刺激。</p>
+          </div>
+          <div class="p-5 rounded-xl bg-amber-50 border border-amber-200">
+            <div class="text-amber-600 font-bold text-base mb-1 flex items-center gap-2">
+              <i class="fa-solid fa-people-arrows"></i> 照顧互動因素
+            </div>
+            <p class="text-xs text-amber-800 leading-normal">催促動作、語速過快、正面爭辯、強行制止、多人圍住長者、照顧者自身身心疲憊。</p>
+          </div>
+        </div>
+
+        <!-- D-E-Me-N-T-I-A 記憶口訣表格 -->
+        <div class="mt-8">
+          <h3 class="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2">
+            <i class="fa-solid fa-kit-medical text-sky-600"></i> 生理身體可逆因子排查口訣：D-E-Me-N-T-I-A
+          </h3>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse text-sm">
+              <thead>
+                <tr class="bg-slate-100 border-b border-slate-200 text-slate-700">
+                  <th class="py-3 px-4 font-bold">字首</th>
+                  <th class="py-3 px-4 font-bold">生理因素分類</th>
+                  <th class="py-3 px-4 font-bold">常見臨床表現與機制</th>
+                  <th class="py-3 px-4 font-bold">排查與照顧焦點</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-200 text-slate-700">
+                <tr class="hover:bg-slate-50">
+                  <td class="py-3 px-4 font-black text-sky-600 text-base">D</td>
+                  <td class="py-3 px-4 font-semibold">Drug 藥物因素</td>
+                  <td class="py-3 px-4">新加藥物、抗膽鹼藥、鎮靜安眠劑副作用或交互作用</td>
+                  <td class="py-3 px-4">核對用藥清單、評估嗜睡、低血壓與跌倒</td>
+                </tr>
+                <tr class="hover:bg-slate-50">
+                  <td class="py-3 px-4 font-black text-sky-600 text-base">E</td>
+                  <td class="py-3 px-4 font-semibold">Electrolyte 電解質失衡</td>
+                  <td class="py-3 px-4">嚴重脫水、便祕、低血鈉 (&lt;135 mEq/L)、低血鉀引發無力焦慮</td>
+                  <td class="py-3 px-4">水分補充狀況、排便天數、抽血生化數據</td>
+                </tr>
+                <tr class="hover:bg-slate-50">
+                  <td class="py-3 px-4 font-black text-sky-600 text-base">Me</td>
+                  <td class="py-3 px-4 font-semibold">Metabolism / Endocrine 代謝內分泌</td>
+                  <td class="py-3 px-4">甲狀腺低下/亢進、血糖忽高忽低、血中氨過高、B12/葉酸缺乏</td>
+                  <td class="py-3 px-4">體重體溫變化、精神倦怠、營養與同半胱氨酸指標</td>
+                </tr>
+                <tr class="hover:bg-slate-50">
+                  <td class="py-3 px-4 font-black text-sky-600 text-base">N</td>
+                  <td class="py-3 px-4 font-semibold">Neurologic 腦神經急症</td>
+                  <td class="py-3 px-4">慢性硬腦膜下出血、暫時性腦缺血 (TIA)、急性腦中風</td>
+                  <td class="py-3 px-4">近期跌倒撞頭史、肢體單側無力、口齒不清</td>
+                </tr>
+                <tr class="hover:bg-slate-50">
+                  <td class="py-3 px-4 font-black text-sky-600 text-base">T</td>
+                  <td class="py-3 px-4 font-semibold">Tumor 腫瘤</td>
+                  <td class="py-3 px-4">腦部轉移或腫瘤造成顱內壓升高與認知急劇改變</td>
+                  <td class="py-3 px-4">神經學徵兆追蹤與醫療影像診斷</td>
+                </tr>
+                <tr class="hover:bg-slate-50">
+                  <td class="py-3 px-4 font-black text-sky-600 text-base">I</td>
+                  <td class="py-3 px-4 font-semibold">Infection 感染（急症首位）</td>
+                  <td class="py-3 px-4">泌尿道感染 (UTI)、吸入性肺炎、不明發燒或菌血症</td>
+                  <td class="py-3 px-4">尿味混濁、體溫微燒、食慾劇降、呼吸喘</td>
+                </tr>
+                <tr class="hover:bg-slate-50">
+                  <td class="py-3 px-4 font-black text-sky-600 text-base">A</td>
+                  <td class="py-3 px-4 font-semibold">Autoimmune / Inflammation 自體免疫與發炎疼痛</td>
+                  <td class="py-3 px-4">退化性關節炎疼痛、隱匿性骨折、全身性發炎引發焦躁</td>
+                  <td class="py-3 px-4">非語言疼痛觀察（皺眉、縮手、觸摸時抗拒呼叫）</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 譫妄 vs 失智 快速比較對照 -->
+        <div class="mt-8 p-6 bg-rose-50 border border-rose-200 rounded-2xl">
+          <h4 class="font-bold text-rose-900 text-lg mb-2 flex items-center gap-2">
+            <i class="fa-solid fa-triangle-exclamation text-rose-600"></i> 最不能漏掉的急症：譫妄 (Delirium) vs 失智退化
+          </h4>
+          <p class="text-sm text-rose-800 mb-4 leading-relaxed">
+            長輩若在「數小時到數天內」突然出現意識模糊、白天昏睡、晚上極度混亂、注意力大幅渙散，是<strong>譫妄（急症）</strong>而非單純失智惡化，需立即安排就醫！
+          </p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs sm:text-sm">
+            <div class="bg-white p-4 rounded-xl border border-rose-200">
+              <span class="font-bold text-rose-700 block mb-1">【譫妄 (Delirium)】- 醫療急症</span>
+              <ul class="list-disc list-inside text-slate-700 space-y-1">
+                <li>發病速度：急性（數小時至數天）</li>
+                <li>病程特色：波動性大（時好時壞、日夜顛倒）</li>
+                <li>意識狀態：明顯障礙、注意力極度不集中</li>
+                <li>預後：及時找出感染/脫水原因治療後可逆</li>
+              </ul>
+            </div>
+            <div class="bg-white p-4 rounded-xl border border-slate-200">
+              <span class="font-bold text-slate-700 block mb-1">【典型失智症 (Dementia)】- 慢性退化</span>
+              <ul class="list-disc list-inside text-slate-700 space-y-1">
+                <li>發病速度：緩慢隱匿（數月到數年）</li>
+                <li>病程特色：漸進性、不可逆持續退化</li>
+                <li>意識狀態：早期多數清醒，直到末期才昏睡</li>
+                <li>日常特徵：漸進遺忘近期記憶、生活功能下降</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================== -->
+    <!-- 頁面 3: ABC 評估與量表 (Assessment) -->
+    <!-- ============================================== -->
+    <section id="section-assessment" class="page-section hidden space-y-8">
+      <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200">
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-4">ABC 行為評估法與常用失智症臨床量表</h2>
+        <p class="text-slate-600 leading-relaxed mb-6">
+          將行為視為「求救訊息」，用 ABC 模式把模糊的抱怨轉變為科學、具體的實證線索，避免隨意為長輩貼上「故意作對」的主觀標籤。
+        </p>
+
+        <!-- ABC 視覺模組 -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          <div class="border-2 border-sky-200 bg-sky-50/50 rounded-2xl p-6">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="w-10 h-10 rounded-xl bg-sky-600 text-white font-extrabold flex items-center justify-center text-lg">A</span>
+              <h4 class="font-bold text-slate-800 text-lg">Antecedent 前因</h4>
+            </div>
+            <p class="text-sm text-slate-600 mb-3">行為發生前的人、事、時、地、環境與生理狀況。</p>
+            <div class="text-xs bg-white p-3 rounded-lg border border-sky-100 text-slate-700">
+              <strong>範例思考：</strong>「傍晚天色變暗、家裡炒菜聲吵雜、長者剛睡醒膀胱脹尿、被照顧者催促脫衣服。」
+            </div>
+          </div>
+
+          <div class="border-2 border-teal-200 bg-teal-50/50 rounded-2xl p-6">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="w-10 h-10 rounded-xl bg-teal-600 text-white font-extrabold flex items-center justify-center text-lg">B</span>
+              <h4 class="font-bold text-slate-800 text-lg">Behavior 行為</h4>
+            </div>
+            <p class="text-sm text-slate-600 mb-3">客觀、具體可觀察到的言語或動作，不加主觀情緒字眼。</p>
+            <div class="text-xs bg-white p-3 rounded-lg border border-teal-100 text-slate-700">
+              <strong>範例思考：</strong>「拿著皮包衝向大門、大喊『我要上班別擋我』並推開照服員手臂，歷時約 15 分鐘。」
+            </div>
+          </div>
+
+          <div class="border-2 border-indigo-200 bg-indigo-50/50 rounded-2xl p-6">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="w-10 h-10 rounded-xl bg-indigo-600 text-white font-extrabold flex items-center justify-center text-lg">C</span>
+              <h4 class="font-bold text-slate-800 text-lg">Consequence 後果</h4>
+            </div>
+            <p class="text-sm text-slate-600 mb-3">身旁照顧者如何反應？長者的行為是平息還是被強化？</p>
+            <div class="text-xs bg-white p-3 rounded-lg border border-indigo-100 text-slate-700">
+              <strong>範例思考：</strong>「家屬大聲喝斥『你退休很久別鬧』→ 長輩感到受限，情緒更高亢；反之若遞茶陪坐 → 逐漸降溫。」
+            </div>
+          </div>
+        </div>
+
+        <!-- 常見量表整理 -->
+        <div class="mt-8">
+          <h3 class="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2">
+            <i class="fa-solid fa-list-check text-sky-600"></i> 常見失智症評估工具總覽
+          </h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+              <span class="text-xs font-bold px-2 py-0.5 bg-blue-100 text-blue-800 rounded">認知功能篩檢</span>
+              <h5 class="font-bold text-slate-800 mt-2 mb-1">MMSE / MoCA / CASI</h5>
+              <p class="text-xs text-slate-600">評估定向感、短期記憶力、語言、計算與注意力，作為嚴重度量化基準線。</p>
+            </div>
+            <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+              <span class="text-xs font-bold px-2 py-0.5 bg-emerald-100 text-emerald-800 rounded">極早期篩檢</span>
+              <h5 class="font-bold text-slate-800 mt-2 mb-1">AD-8 / Mini-Cog</h5>
+              <p class="text-xs text-slate-600">包含 8 題日常改變評估或畫時鐘測試，適合社區快速篩檢極早期退化徵兆。</p>
+            </div>
+            <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+              <span class="text-xs font-bold px-2 py-0.5 bg-purple-100 text-purple-800 rounded">日常生活功能</span>
+              <h5 class="font-bold text-slate-800 mt-2 mb-1">BADL / IADL</h5>
+              <p class="text-xs text-slate-600">評估基本生活自理（穿衣、沐浴、進食）與工具性能力（電話、金錢、購物）。</p>
+            </div>
+            <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+              <span class="text-xs font-bold px-2 py-0.5 bg-rose-100 text-rose-800 rounded">BPSD專用量表</span>
+              <h5 class="font-bold text-slate-800 mt-2 mb-1">NPI (神經精神量表)</h5>
+              <p class="text-xs text-slate-600">全面評估妄想、幻覺、易怒、淡漠等 12 項行為頻率、嚴重度及照顧者困擾度。</p>
+            </div>
+          </div>
+          <p class="text-xs text-slate-500 mt-3">
+            ＊提醒：量表的用途是建立客觀基線並追蹤變化，分數是照護計畫調整的依據，而非用來替個案貼標籤或考試！
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================== -->
+    <!-- 頁面 4: 5大經典情境演練 (Cases) -->
+    <!-- ============================================== -->
+    <section id="section-cases" class="page-section hidden space-y-8">
+      <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200">
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-2">5 大常見 BPSD 情境擬真演練</h2>
+        <p class="text-slate-600 text-sm sm:text-base mb-6">點擊不同案例，學習「先同理、再轉移、重安全」的非藥物照護應對策略：</p>
+
+        <!-- 案例切換 Tabs -->
+        <div class="flex flex-wrap gap-2 border-b border-slate-200 pb-3 mb-6">
+          <button onclick="showCase(1)" id="case-btn-1" class="case-tab-btn px-4 py-2 rounded-xl text-sm font-bold bg-sky-600 text-white shadow-sm transition">
+            情境 1：有人偷我錢！
+          </button>
+          <button onclick="showCase(2)" id="case-btn-2" class="case-tab-btn px-4 py-2 rounded-xl text-sm font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 transition">
+            情境 2：黃昏說要回家
+          </button>
+          <button onclick="showCase(3)" id="case-btn-3" class="case-tab-btn px-4 py-2 rounded-xl text-sm font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 transition">
+            情境 3：窗外有小孩看我
+          </button>
+          <button onclick="showCase(4)" id="case-btn-4" class="case-tab-btn px-4 py-2 rounded-xl text-sm font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 transition">
+            情境 4：拒絕洗澡並推人
+          </button>
+          <button onclick="showCase(5)" id="case-btn-5" class="case-tab-btn px-4 py-2 rounded-xl text-sm font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 transition">
+            情境 5：半夜起床翻箱倒櫃
+          </button>
+        </div>
+
+        <!-- 案例內容展示框 -->
+        <div id="case-content-box" class="space-y-6">
+          <!-- JS 會自動動態填入對應案例 -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================== -->
+    <!-- 頁面 5: 測驗遊戲與成績上傳 (Quiz & Cloud) -->
+    <!-- ============================================== -->
+    <section id="section-quiz" class="page-section hidden space-y-8">
+      
+      <!-- 步驟 1: 填寫學生資料 (表單) -->
+      <div id="quiz-step-student-info" class="bg-white rounded-3xl p-6 sm:p-10 shadow-md border border-slate-200 max-w-2xl mx-auto">
+        <div class="text-center space-y-3 mb-8">
+          <div class="w-14 h-14 rounded-2xl bg-sky-100 text-sky-600 flex items-center justify-center text-2xl mx-auto shadow-inner">
+            <i class="fa-solid fa-graduation-cap"></i>
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">課堂成效評量與問答挑戰</h2>
+          <p class="text-slate-600 text-sm">請先登記您的學員資訊，測驗成績將在結束後記錄並傳送至老師的雲端資料庫。</p>
+        </div>
+
+        <form id="student-form" onsubmit="startQuiz(event)" class="space-y-5">
+          <div>
+            <label class="block text-sm font-bold text-slate-700 mb-1.5" for="student-name">
+              <i class="fa-solid fa-user text-sky-600 mr-1"></i> 學生姓名 <span class="text-rose-500">*</span>
+            </label>
+            <input type="text" id="student-name" required placeholder="請輸入姓名（例如：陳大明）" 
+                   class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-sky-500 text-slate-800 transition">
+          </div>
+
+          <div>
+            <label class="block text-sm font-bold text-slate-700 mb-1.5" for="student-dept">
+              <i class="fa-solid fa-building-columns text-sky-600 mr-1"></i> 科系 / 班級 <span class="text-rose-500">*</span>
+            </label>
+            <input type="text" id="student-dept" required placeholder="例如：護理系三年甲班 / 老人福祉系" 
+                   class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-sky-500 text-slate-800 transition">
+          </div>
+
+          <div>
+            <label class="block text-sm font-bold text-slate-700 mb-1.5" for="student-id">
+              <i class="fa-solid fa-id-card text-sky-600 mr-1"></i> 學生學號 <span class="text-rose-500">*</span>
+            </label>
+            <input type="text" id="student-id" required placeholder="請輸入完整學號（例如：B11234567）" 
+                   class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-sky-500 text-slate-800 transition">
+          </div>
+
+          <div class="pt-2">
+            <button type="submit" class="w-full py-4 rounded-xl bg-gradient-to-r from-sky-600 to-teal-600 text-white font-bold text-lg shadow-lg hover:from-sky-700 hover:to-teal-700 transition flex items-center justify-center gap-2">
+              <span>進入問答測驗</span>
+              <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+        </form>
+
+        <!-- 老師雲端串接設定摺疊區 -->
+        <div class="mt-8 pt-6 border-t border-slate-200">
+          <button onclick="toggleTeacherSetting()" type="button" class="text-xs font-semibold text-slate-500 hover:text-sky-600 flex items-center justify-between w-full">
+            <span><i class="fa-solid fa-gear mr-1"></i> 老師專用：Google 雲端試算表串接網址設定</span>
+            <i id="teacher-setting-arrow" class="fa-solid fa-chevron-down text-xs transition"></i>
+          </button>
+          
+          <div id="teacher-setting-box" class="hidden mt-3 p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-3">
+            <p class="text-xs text-slate-600 leading-relaxed">
+              可將已部署完成的 <strong>Google Apps Script 網頁應用程式 URL (Web App URL)</strong> 填入下方，學生成績送出時便會自動寫入老師的 Google 試算表：
+            </p>
+            <input type="url" id="gas-url-input" placeholder="https://script.google.com/macros/s/.../exec"
+                   class="w-full px-3 py-2 text-xs rounded-lg border border-slate-300 focus:outline-none focus:ring-1 focus:ring-sky-500 font-mono">
+            <div class="flex justify-between items-center">
+              <span class="text-[11px] text-slate-400">若無設定，仍可於交卷後直接下載 Excel/CSV 成績表。</span>
+              <button onclick="saveGasUrl()" type="button" class="px-3 py-1 bg-slate-700 text-white text-xs font-semibold rounded-lg hover:bg-slate-800">
+                儲存網址
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 步驟 2: 測驗進行畫面 -->
+      <div id="quiz-step-running" class="hidden max-w-3xl mx-auto space-y-6">
+        <!-- 學生資訊列 & 進度條 -->
+        <div class="bg-white rounded-2xl p-4 sm:p-6 shadow-sm border border-slate-200">
+          <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
+            <div class="flex items-center space-x-3">
+              <div class="w-10 h-10 rounded-full bg-sky-100 text-sky-700 font-bold flex items-center justify-center">
+                <i class="fa-solid fa-user-check"></i>
+              </div>
+              <div>
+                <div class="font-bold text-slate-800 text-sm sm:text-base" id="quiz-user-badge">學生姓名 (學號)</div>
+                <div class="text-xs text-slate-500" id="quiz-dept-badge">科系名稱</div>
+              </div>
+            </div>
+            <div class="text-right">
+              <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block">當前進度</span>
+              <span class="text-lg font-black text-sky-600" id="quiz-progress-text">題號 1 / 10</span>
+            </div>
+          </div>
+
+          <!-- 進度條 -->
+          <div class="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden">
+            <div id="quiz-progress-bar" class="bg-gradient-to-r from-sky-500 to-teal-500 h-2.5 rounded-full transition-all duration-300" style="width: 10%"></div>
+          </div>
+        </div>
+
+        <!-- 題目本體卡片 -->
+        <div class="bg-white rounded-3xl p-6 sm:p-10 shadow-md border border-slate-200">
+          <div class="mb-4 inline-block px-3 py-1 rounded-full text-xs font-bold bg-sky-100 text-sky-800" id="quiz-question-tag">
+            核心概念題
+          </div>
+          <h3 class="text-lg sm:text-xl font-bold text-slate-900 mb-6 leading-snug" id="quiz-question-title">
+            題目內容載入中...
+          </h3>
+
+          <!-- 選項容器 -->
+          <div id="quiz-options-container" class="space-y-3">
+            <!-- 動態生成選項按鈕 -->
+          </div>
+
+          <!-- 即時解析回饋區 (選完後跳出) -->
+          <div id="quiz-feedback-box" class="hidden mt-6 p-5 rounded-2xl border transition-all duration-300">
+            <div class="flex items-start gap-3">
+              <span id="quiz-feedback-icon" class="text-2xl mt-0.5"></span>
+              <div>
+                <h4 id="quiz-feedback-title" class="font-bold text-base mb-1"></h4>
+                <p id="quiz-feedback-desc" class="text-sm leading-relaxed"></p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 控制操作列 -->
+          <div class="mt-8 pt-4 border-t border-slate-100 flex justify-between items-center">
+            <span class="text-xs text-slate-400 font-medium">每題 10 分，共 100 分</span>
+            <button id="quiz-next-btn" onclick="nextQuestion()" disabled
+                    class="px-6 py-3 rounded-xl bg-slate-300 text-slate-500 font-bold transition flex items-center gap-2 cursor-not-allowed">
+              <span>下一題</span>
+              <i class="fa-solid fa-arrow-right text-xs"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 步驟 3: 測驗結果與成績同步至 Google 雲端 -->
+      <div id="quiz-step-result" class="hidden max-w-3xl mx-auto space-y-6">
+        <div class="bg-white rounded-3xl p-8 sm:p-10 shadow-lg border border-slate-200 text-center">
+          <div class="w-20 h-20 rounded-full mx-auto flex items-center justify-center text-4xl mb-4 shadow-sm" id="result-trophy">
+            🏆
+          </div>
+          <h3 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-1" id="result-status-title">測驗完成！</h3>
+          <p class="text-slate-500 text-sm mb-6" id="result-time-text">完成時間：剛剛</p>
+
+          <!-- 分數大儀表盤 -->
+          <div class="inline-block px-8 py-6 rounded-3xl bg-slate-50 border-2 border-slate-200 mb-6">
+            <span class="text-xs uppercase font-bold text-slate-400 tracking-wider block">測驗總分</span>
+            <span class="text-5xl sm:text-6xl font-black text-sky-600" id="result-score">80</span>
+            <span class="text-sm font-semibold text-slate-500">/ 100 分</span>
+          </div>
+
+          <div class="max-w-md mx-auto text-sm text-slate-600 space-y-2 mb-8 bg-slate-50 p-4 rounded-xl text-left border border-slate-200">
+            <div class="flex justify-between"><span>學生姓名：</span><strong class="text-slate-800" id="res-name">-</strong></div>
+            <div class="flex justify-between"><span>就讀科系：</span><strong class="text-slate-800" id="res-dept">-</strong></div>
+            <div class="flex justify-between"><span>學生學號：</span><strong class="text-slate-800" id="res-id">-</strong></div>
+            <div class="flex justify-between"><span>答對率：</span><strong class="text-teal-600" id="res-accuracy">8 / 10 題</strong></div>
+          </div>
+
+          <!-- Google 雲端同步狀態框 -->
+          <div id="cloud-sync-status" class="p-4 rounded-2xl mb-8 border text-sm transition">
+            <!-- 動態狀態資訊 -->
+          </div>
+
+          <!-- 操作按鈕列 -->
+          <div class="flex flex-wrap items-center justify-center gap-4">
+            <button onclick="downloadScoreReport()" class="px-5 py-3 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-bold shadow transition flex items-center gap-2">
+              <i class="fa-solid fa-file-csv"></i> 下載本機成績表 (CSV)
+            </button>
+            <button onclick="retryQuiz()" class="px-5 py-3 rounded-xl bg-slate-200 hover:bg-slate-300 text-slate-800 font-bold transition flex items-center gap-2">
+              <i class="fa-solid fa-rotate-right"></i> 重新測驗
+            </button>
+            <button onclick="switchTab('intro')" class="px-5 py-3 rounded-xl border border-slate-300 hover:bg-slate-50 text-slate-700 font-semibold transition">
+              回到教材首頁
+            </button>
+          </div>
+        </div>
+
+        <!-- 題型錯題複習檢視 -->
+        <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-200">
+          <h4 class="font-bold text-slate-900 text-lg mb-4 flex items-center gap-2">
+            <i class="fa-solid fa-list-ol text-sky-600"></i> 本次測驗答題紀錄與核心解析清單
+          </h4>
+          <div id="quiz-review-list" class="space-y-4">
+            <!-- 動態生成題目複習 -->
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- 頁腳 -->
+  <footer class="bg-white border-t border-slate-200 py-8 text-center text-xs text-slate-500">
+    <div class="max-w-7xl mx-auto px-4 space-y-2">
+      <p class="font-semibold text-slate-700">失智症精神行為症狀 (BPSD) 教學互動系統</p>
+      <p>教材來源整理自教學簡報與臨床照護指引 • 非藥物照護為優先 • 適合部署於 GitHub Pages 提供學生線上自主學習</p>
+    </div>
+  </footer>
+
+  <!-- 題目庫與主程式邏輯 -->
+  <script>
+    // ----------------------------------------------------
+    // 1. 測驗題庫 (10 題深度情境與核心觀念題)
+    // ----------------------------------------------------
+    const quizQuestions = [
+      {
+        tag: "核心照護哲學",
+        question: "失智長者出現精神行為症狀 (BPSD) 時，專業照護人員應具備的最優先心態是什麼？",
+        options: [
+          "所有行為先視為「訊息」與需求求救，而非故意找麻煩的「問題」",
+          "長者是故意測試照護者底線，必須立即嚴肅立下規矩",
+          "為了現場安全，第一時間應優先使用抗精神病藥物讓其安靜",
+          "立即大聲糾正其說法，讓長者早日回到現實認知"
+        ],
+        answer: 0,
+        explanation: "簡報核心金句：『所有行為先視為訊息，不要只視為問題』。長者常因短期記憶退化與焦慮無法清楚言明需求，照顧者應先同理情緒並釐清原因。"
+      },
+      {
+        tag: "成因排查急症",
+        question: "當失智長者的 BPSD 在幾天內突然急劇惡化、日夜顛倒且注意力極度渙散，首要排除的身體急症是什麼？",
+        options: [
+          "正常的失智症晚期不可逆急遽惡化",
+          "譫妄 (Delirium)，並優先排查泌尿道感染、脫水、便祕或藥物副作用",
+          "純粹是天氣變化的情緒低落，無需就醫檢查",
+          "長者年事已高，僅需增加安眠藥劑量即可"
+        ],
+        answer: 1,
+        explanation: "譫妄具有急性起病、波動性大的特徵，最常見誘因包含感染（如UTI）、脫水、電解質不平衡、便祕或新藥物影響，屬於不可漏掉的醫療急症！"
+      },
+      {
+        tag: "情境應對：被偷妄想",
+        question: "林阿嬤抓著錢包焦急大喊：「有人偷我的錢！一定是你拿的！」，照護者第一時間最合適的回應是：",
+        options: [
+          "「妳不要亂賴人！我根本沒碰妳的錢包！」",
+          "「您是不是很著急、很擔心？沒關係，我陪您一起找找看。」",
+          "「妳每次都忘記放哪裡，昨天才發生過一次！」",
+          "直接把錢包搶過來替長輩保管並離開現場"
+        ],
+        answer: 1,
+        explanation: "被偷妄想往往源自長者失去安全感與控制感。切忌當面爭論辯解對錯，先同理長者的著急情緒，陪伴尋找能有效降溫。"
+      },
+      {
+        tag: "ABC行為紀錄法",
+        question: "在 ABC 行為評估模型中，『A (Antecedent)』代表什麼意義？",
+        options: [
+          "照顧者的攻擊反應 (Aggression)",
+          "行為發生前的人、事、時、地、環境與身體狀況等前因刺激",
+          "長者測驗時的評估分數 (Assessment score)",
+          "行為平息後給予的藥物治療 (Antipsychotics)"
+        ],
+        answer: 1,
+        explanation: "A 代表 Antecedent（前因）。評估 A 能幫助我們找出誘發行為的特定環境線索、身體疼痛或不適刺激，是根本預防的起點。"
+      },
+      {
+        tag: "情境應對：黃昏症候群",
+        question: "王伯伯每天傍晚 5 點天色變暗時，就會焦躁不安地走向大門大喊「這不是我家，我要回家！」。下列何項非藥物處置最恰當？",
+        options: [
+          "在門口裝嚴厲警報器，長者一靠近就大聲嚇阻他",
+          "嚴厲告訴他：「你都住這裡十年了，不要再胡思亂想！」",
+          "傍晚前提前開燈增加室內照明、降低電視嘈雜聲，並安排熟悉的喝茶或摺衣服等活動引導注意力",
+          "白天讓他整天在客廳睡覺，晚上就不會焦慮了"
+        ],
+        answer: 2,
+        explanation: "黃昏症候群應在日落前提前調整環境光線、減少陰影雜音刺激，並藉由規律溫暖的作息與有意義的活動安定長者身心。"
+      },
+      {
+        tag: "情境應對：抗拒洗澡",
+        question: "李奶奶一進浴室就大喊「不要碰我！」並推開照護員。照護員應如何評估與處置？",
+        options: [
+          "認定長輩是在故意攻擊，通報強制拘禁洗澡",
+          "先退一步保持安全距離暫停動作，評估是否因浴室太冷、水溫不適或羞恥恐懼，可給予大毛巾遮蔽或先改分段擦澡",
+          "找三個同仁一起壓住李奶奶，快速洗完比較省事",
+          "取消未來一週所有清潔洗澡，任由其髒亂"
+        ],
+        answer: 1,
+        explanation: "失智長者抗拒沐浴多半出於赤身露體的恐懼羞恥或水溫水柱刺激。應提供自主選擇權（如先洗臉或泡腳）、加強保暖遮蔽，切忌硬碰硬拉扯。"
+      },
+      {
+        tag: "成因排查口訣",
+        question: "在評估長輩生理原因的『D-E-Me-N-T-I-A』記憶口訣中，『Me』代表什麼面向？",
+        options: [
+          "Mental health（心理精神分裂）",
+          "Metabolism / Endocrine（代謝與內分泌，如甲狀腺功能、血糖、B12/葉酸缺乏）",
+          "Medication only（僅代表安眠藥物）",
+          "Memory loss（純粹的記憶喪失）"
+        ],
+        answer: 1,
+        explanation: "Me 代表 Metabolism / Endocrine。甲狀腺亢進/低下、電解質混亂、維生素 B12/葉酸不足及血糖不穩，皆會引起認知與情緒行為異變。"
+      },
+      {
+        tag: "症狀辨識：淡漠",
+        question: "失智長者整天呆坐、對過去熱愛的嗜好完全提不起勁，常常被家屬誤會為「個性變懶惰」。在 BPSD 中這屬於何種症狀？",
+        options: [
+          "激躁症狀 (Agitation)",
+          "淡漠 (Apathy)，屬於生理驅力與動機執行功能的下降",
+          "多疑妄想 (Paranoia)",
+          "幻覺 (Hallucination)"
+        ],
+        answer: 1,
+        explanation: "淡漠 (Apathy) 是大腦額葉執行功能受損的表現，長輩並非偷懶故意不起床，照顧上需給予難度適中、步驟拆解的小活動陪伴引導。"
+      },
+      {
+        tag: "情境應對：視幻覺",
+        question: "張爺爺深夜指著昏暗窗戶驚恐大喊：「窗外有陌生小孩一直在盯著我看！」。照顧者何種應對較適當？",
+        options: [
+          "嘲笑他說：「爺爺你眼花撞鬼了吧，哪裡有小孩！」",
+          "立刻認同長輩，跟著大喊抓小偷並報警引起更大恐慌",
+          "同理其不安感：「看到那個黑影一定讓您很不舒服，我陪著您，我們把窗簾拉上開亮燈看看好嗎？」",
+          "強迫張爺爺貼在窗戶玻璃上看清楚以證明沒有人"
+        ],
+        answer: 2,
+        explanation: "長輩因視力衰退與光影反差易產生錯認或視幻覺。切忌嘲笑爭辯，應先承接其害怕恐懼感，調整照明、拉上窗簾並陪伴安撫。"
+      },
+      {
+        tag: "非藥物照護優先性",
+        question: "處理 BPSD 精神行為症狀時，臨床處置為何始終強調「非藥物照護優先」？",
+        options: [
+          "抗精神病藥物在長者身上容易引發嗜睡、肌肉僵硬、步態不穩跌倒，甚至增加腦中風等副作用風險",
+          "因為非藥物介入完全不需要照顧人力",
+          "因為現行醫療法規完全禁止對失智症開立任何精神藥物",
+          "非藥物治療可以在一天內讓失智症完全治癒康復"
+        ],
+        answer: 0,
+        explanation: "老人用藥極易產生錐體外症候群、低血壓、鎮靜過度致跌倒等副作用。藥物僅在嚴重攻擊危及自傷傷人時為最後防線，非藥物調整永遠是基石。"
+      }
+    ];
+
+    // ----------------------------------------------------
+    // 2. 案例情境演練資料庫
+    // ----------------------------------------------------
+    const casesData = {
+      1: {
+        title: "情境 1：林阿嬤抓著錢包大喊「有人偷我錢！一定是你！」",
+        category: "思考/知覺面向（被偷妄想）",
+        background: "林阿嬤平時將舊皮夾藏在枕頭下，今天整理房間後皮夾被移到梳妝台，長輩找不到後情緒爆發，指責照顧員偷錢。",
+        causes: "【身體】短期記憶退化；【心理】極度缺乏安全感；【環境】物品被更動擺放；【互動】急忙否認「我沒拿」引發對立。",
+        firstWord: "「阿嬤，錢包找不到真的會好緊張！不要急，我現在馬上陪妳一起找找看！」",
+        actions: [
+          "固定貴重物品存放位置，外層抽屜貼上清晰的大字與圖示標籤。",
+          "準備備用的小錢包放少量零錢，重要存摺證件由家屬妥善保管。",
+          "站在長者側前方45度角，保持尊嚴，避免高姿態居高臨下反駁。"
+        ]
+      },
+      2: {
+        title: "情境 2：晚餐後王伯伯急著出門：「這不是我家，我要回家！」",
+        category: "外顯行為與驅力面向（黃昏症候群 / 漫遊）",
+        background: "傍晚 5 點天色變暗，廚房傳來油煙鍋碗聲，客廳電視正播報新聞。長輩穿起外套走向玄關要求開門外出找媽媽。",
+        causes: "【身體】白天久坐未活動導致疲憊但睡不著；【環境】暮色降臨光線昏暗、噪音混亂；【心理】時間定向障礙，誤以為到了下班回家照顧幼兒時光。",
+        firstWord: "「王伯伯，你很想念熟悉的老家對不對？外面現在天黑風大，我們先坐下來喝杯熱麥片，等一下車子來接好嗎？」",
+        actions: [
+          "提早於下午 4 點前開亮全室燈光，窗簾拉上，避免暮色引發黃昏躁動。",
+          "大門玄關設置障眼簾幕或門鈴提醒器，避免長輩衝出走失。",
+          "建立固定夜間儀式（聽老歌、溫水泡腳、撫觸按摩）。"
+        ]
+      },
+      3: {
+        title: "情境 3：張爺爺深夜指著窗戶恐慌：「有小女孩一直在看我！」",
+        category: "思考/知覺面向（視幻覺 / 陰影錯認）",
+        background: "深夜客廳只開小夜燈，陽台盆栽樹影被路燈映在玻璃窗上隨風搖曳，長輩拒絕回房睡覺，身體發抖。",
+        causes: "【身體】白內障視力不佳、夜間疲倦；【環境】光線不足、反光與樹影造成視覺錯認；【急症排查】突然出現需量體溫確認無泌尿感染引起之譫妄。",
+        firstWord: "「爺爺，看到那個黑影讓您心裡很不舒服對不對？不要害怕，我陪在您旁邊保護您。」",
+        actions: [
+          "立刻走過去拉上厚窗簾阻隔陰影，將室內主照明打開確認現場安全。",
+          "檢查長者體溫與解尿狀況，排除急性感染所誘發之譫妄視幻覺。",
+          "切忌爭辯「哪裡有鬼！」，先安撫身體恐懼，再轉移至沙發喝溫水。"
+        ]
+      },
+      4: {
+        title: "情境 4：李奶奶一聽到洗澡就揮手大罵：「不要碰我！」",
+        category: "行為激躁面向（抗拒照護 / 自我防禦）",
+        background: "照服員見時間已晚，直接拉著李奶奶手腕往浴室走並動手脫外套，奶奶瞬間大叫反抗並推打照服員。",
+        causes: "【身體】皮膚敏感怕冷、關節活動疼痛；【心理】被強行拉扯感到尊嚴受損與赤身露體恐懼；【互動】照護者催促、指令過快且未事前預告。",
+        firstWord: "「李奶奶對不起，是我太急了嚇到您了！我們先不洗澡，坐下來休息一下好嗎？」",
+        actions: [
+          "暫停動作，鬆開拉扯的手，退後半步保留出口空間，讓長輩感到安全。",
+          "提供二選一自主權：「奶奶，我們先洗臉擦擦手，還是先用溫水泡泡腳？」",
+          "提高浴室室溫、大浴巾隨時覆蓋身體保護隱私，若情緒仍緊繃可改分段擦澡。"
+        ]
+      },
+      5: {
+        title: "情境 5：林爺爺凌晨 2 點翻箱倒櫃：「我要上班，別擋路！」",
+        category: "生理驅力與外顯行為（睡眠節律混亂 / 角色記憶）",
+        background: "林爺爺半夜突然翻找公事包，家屬擋在門口大罵「你退休二十年了！不要再鬧了！」，長輩憤怒衝撞門把。",
+        causes: "【身體】夜尿脹尿、白天午睡過長；【環境】半夜黑暗混亂定向；【心理】過去數十年的公務員責任感與角色記憶被觸發。",
+        firstWord: "「林大哥，你真的很盡責，半夜還惦記著工作！公事包我幫你拿著，我們先坐一下，我幫你看看現在是幾點鐘。」",
+        actions: [
+          "切忌硬碰硬大聲喊「你退休了不要鬧」，這會徹底瓦解長者的自尊與安全感。",
+          "引導長者看時鐘與窗外黑夜：「現在才半夜兩點，辦公室還沒開門，我們先睡飽五點再出發！」",
+          "白天增加日光浴與運動量，減少午睡超過一小時，改善日夜睡眠節奏。"
+        ]
+      }
+    };
+
+    // ----------------------------------------------------
+    // 3. 系統狀態變數
+    // ----------------------------------------------------
+    let currentQuizIndex = 0;
+    let quizScore = 0;
+    let userAnswers = [];
+    let studentInfo = {
+      name: "",
+      dept: "",
+      id: "",
+      startTime: null,
+      endTime: null
+    };
+
+    // 儲存老師的 Google Apps Script 網址 (預設儲存在記憶體或可由介面輸入)
+    let teacherGoogleAppScriptUrl = localStorage.getItem("bpsd_gas_url") || "";
+
+    // ----------------------------------------------------
+    // 4. 頁面導航與分頁切換
+    // ----------------------------------------------------
+    function switchTab(tabId) {
+      // 隱藏所有 section
+      document.querySelectorAll('.page-section').forEach(sec => sec.classList.add('hidden'));
+      // 顯示目標 section
+      const targetSec = document.getElementById(`section-${tabId}`);
+      if (targetSec) targetSec.classList.remove('hidden');
+
+      // 更新頂部導覽列樣式
+      document.querySelectorAll('nav button[id^="nav-"]').forEach(btn => {
+        btn.classList.remove('tab-active');
+        btn.classList.add('text-slate-600');
+      });
+      const activeNav = document.getElementById(`nav-${tabId}`);
+      if (activeNav && tabId !== 'quiz') {
+        activeNav.classList.add('tab-active');
+        activeNav.classList.remove('text-slate-600');
+      }
+
+      // 滾動回最頂部
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('hidden');
+    }
+
+    // ----------------------------------------------------
+    // 5. 情境演練渲染邏輯
+    // ----------------------------------------------------
+    function showCase(caseNum) {
+      // 切換按鈕狀態
+      document.querySelectorAll('.case-tab-btn').forEach(btn => {
+        btn.classList.remove('bg-sky-600', 'text-white', 'shadow-sm');
+        btn.classList.add('bg-slate-100', 'text-slate-700');
+      });
+      const activeBtn = document.getElementById(`case-btn-${caseNum}`);
+      if (activeBtn) {
+        activeBtn.classList.remove('bg-slate-100', 'text-slate-700');
+        activeBtn.classList.add('bg-sky-600', 'text-white', 'shadow-sm');
+      }
+
+      const data = casesData[caseNum];
+      if (!data) return;
+
+      const html = `
+        <div class="border-l-4 border-sky-600 pl-4 py-1">
+          <span class="text-xs font-bold text-sky-700 uppercase tracking-wider">${data.category}</span>
+          <h3 class="text-xl font-extrabold text-slate-900 mt-1">${data.title}</h3>
+        </div>
+
+        <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 text-sm space-y-3">
+          <div><strong class="text-slate-900"><i class="fa-solid fa-film text-sky-600 mr-1.5"></i>事件情境：</strong><span class="text-slate-700">${data.background}</span></div>
+          <div><strong class="text-slate-900"><i class="fa-solid fa-magnifying-glass text-teal-600 mr-1.5"></i>前因分析：</strong><span class="text-slate-700">${data.causes}</span></div>
+        </div>
+
+        <div class="bg-emerald-50 p-5 rounded-2xl border border-emerald-200">
+          <h4 class="font-bold text-emerald-900 text-sm mb-1.5 flex items-center gap-1.5">
+            <i class="fa-solid fa-comment-dots text-emerald-600 text-base"></i> 推薦照顧者第一句安撫示範語（接住情緒，不糾正錯誤）：
+          </h4>
+          <p class="text-base text-emerald-800 font-medium italic">“${data.firstWord}”</p>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-slate-900 text-sm mb-3 flex items-center gap-2">
+            <i class="fa-solid fa-clipboard-list text-sky-600"></i> 後續環境與非藥物照護關鍵對策：
+          </h4>
+          <ul class="space-y-2 text-sm text-slate-700">
+            ${data.actions.map(act => `<li class="flex items-start gap-2.5"><i class="fa-solid fa-check text-sky-600 mt-1 text-xs"></i><span>${act}</span></li>`).join('')}
+          </ul>
+        </div>
+      `;
+      document.getElementById('case-content-box').innerHTML = html;
+    }
+
+    // ----------------------------------------------------
+    // 6. 老師後台 Google 雲端網址設定功能
+    // ----------------------------------------------------
+    function toggleTeacherSetting() {
+      const box = document.getElementById('teacher-setting-box');
+      const arrow = document.getElementById('teacher-setting-arrow');
+      box.classList.toggle('hidden');
+      arrow.classList.toggle('rotate-180');
+      if (teacherGoogleAppScriptUrl) {
+        document.getElementById('gas-url-input').value = teacherGoogleAppScriptUrl;
+      }
+    }
+
+    function saveGasUrl() {
+      const val = document.getElementById('gas-url-input').value.trim();
+      teacherGoogleAppScriptUrl = val;
+      localStorage.setItem("bpsd_gas_url", val);
+      alert("✅ 已成功儲存 Google 試算表串接網址！後續提交將發送至此位置。");
+    }
+
+    // ----------------------------------------------------
+    // 7. 問答測驗系統主程式
+    // ----------------------------------------------------
+    function startQuiz(e) {
+      e.preventDefault();
+      studentInfo.name = document.getElementById('student-name').value.trim();
+      studentInfo.dept = document.getElementById('student-dept').value.trim();
+      studentInfo.id = document.getElementById('student-id').value.trim();
+      studentInfo.startTime = new Date();
+
+      if (!studentInfo.name || !studentInfo.dept || !studentInfo.id) {
+        alert("請完整填寫學生姓名、科系與學號！");
+        return;
+      }
+
+      // 重置測驗狀態
+      currentQuizIndex = 0;
+      quizScore = 0;
+      userAnswers = [];
+
+      // 更新進度卡片資訊
+      document.getElementById('quiz-user-badge').innerText = `${studentInfo.name} (${studentInfo.id})`;
+      document.getElementById('quiz-dept-badge').innerText = studentInfo.dept;
+
+      // 切換視圖
+      document.getElementById('quiz-step-student-info').classList.add('hidden');
+      document.getElementById('quiz-step-running').classList.remove('hidden');
+      document.getElementById('quiz-step-result').classList.add('hidden');
+
+      renderCurrentQuestion();
+    }
+
+    function renderCurrentQuestion() {
+      const q = quizQuestions[currentQuizIndex];
+      const total = quizQuestions.length;
+
+      // 標題與標籤
+      document.getElementById('quiz-question-tag').innerText = q.tag;
+      document.getElementById('quiz-question-title').innerText = `${currentQuizIndex + 1}. ${q.question}`;
+      document.getElementById('quiz-progress-text').innerText = `題號 ${currentQuizIndex + 1} / ${total}`;
+      
+      const percent = Math.round(((currentQuizIndex + 1) / total) * 100);
+      document.getElementById('quiz-progress-bar').style.width = `${percent}%`;
+
+      // 隱藏即時回饋與重設下一題按鈕
+      const feedbackBox = document.getElementById('quiz-feedback-box');
+      feedbackBox.classList.add('hidden');
+      
+      const nextBtn = document.getElementById('quiz-next-btn');
+      nextBtn.disabled = true;
+      nextBtn.classList.add('cursor-not-allowed', 'bg-slate-300', 'text-slate-500');
+      nextBtn.classList.remove('bg-sky-600', 'text-white', 'hover:bg-sky-700');
+      nextBtn.innerHTML = (currentQuizIndex === total - 1) ? `<span>查看成績結果</span> <i class="fa-solid fa-flag-checkered text-xs"></i>` : `<span>下一題</span> <i class="fa-solid fa-arrow-right text-xs"></i>`;
+
+      // 渲染選項
+      const optionsBox = document.getElementById('quiz-options-container');
+      optionsBox.innerHTML = '';
+
+      q.options.forEach((optText, idx) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = `option-btn w-full p-4 text-left rounded-2xl border-2 border-slate-200 hover:border-sky-400 bg-white hover:bg-sky-50/50 text-slate-700 text-sm sm:text-base font-medium transition flex items-start gap-3`;
+        btn.innerHTML = `
+          <span class="w-7 h-7 rounded-lg bg-slate-100 text-slate-600 font-bold flex items-center justify-center shrink-0 text-xs">${String.fromCharCode(65 + idx)}</span>
+          <span class="flex-grow pt-0.5 leading-relaxed">${optText}</span>
+        `;
+        btn.onclick = () => selectOption(idx);
+        optionsBox.appendChild(btn);
+      });
+    }
+
+    function selectOption(selectedIdx) {
+      const q = quizQuestions[currentQuizIndex];
+      const isCorrect = (selectedIdx === q.answer);
+
+      // 紀錄答題歷程
+      userAnswers.push({
+        question: q.question,
+        chosen: q.options[selectedIdx],
+        correctAnswer: q.options[q.answer],
+        isCorrect: isCorrect,
+        explanation: q.explanation
+      });
+
+      if (isCorrect) {
+        quizScore += 10;
+      }
+
+      // 鎖定所有選項按鈕並標註正確/錯誤色彩
+      const allBtns = document.querySelectorAll('.option-btn');
+      allBtns.forEach((btn, idx) => {
+        btn.disabled = true;
+        btn.classList.remove('hover:border-sky-400', 'hover:bg-sky-50/50');
+        if (idx === q.answer) {
+          btn.classList.add('border-emerald-500', 'bg-emerald-50', 'text-emerald-900', 'font-bold');
+        } else if (idx === selectedIdx && !isCorrect) {
+          btn.classList.add('border-rose-400', 'bg-rose-50', 'text-rose-900');
+        }
+      });
+
+      // 顯示即時回饋
+      const feedbackBox = document.getElementById('quiz-feedback-box');
+      const icon = document.getElementById('quiz-feedback-icon');
+      const title = document.getElementById('quiz-feedback-title');
+      const desc = document.getElementById('quiz-feedback-desc');
+
+      feedbackBox.classList.remove('hidden', 'bg-emerald-50', 'border-emerald-200', 'text-emerald-900', 'bg-rose-50', 'border-rose-200', 'text-rose-900');
+
+      if (isCorrect) {
+        feedbackBox.classList.add('bg-emerald-50', 'border-emerald-200', 'text-emerald-900');
+        icon.className = 'fa-solid fa-circle-check text-emerald-600 text-2xl';
+        title.innerText = '回答正確！答題技巧非常精準！';
+      } else {
+        feedbackBox.classList.add('bg-rose-50', 'border-rose-200', 'text-rose-900');
+        icon.className = 'fa-solid fa-circle-xmark text-rose-600 text-2xl';
+        title.innerText = '回答未完全正確，請看照護重點：';
+      }
+      desc.innerText = q.explanation;
+
+      // 解鎖下一題按鈕
+      const nextBtn = document.getElementById('quiz-next-btn');
+      nextBtn.disabled = false;
+      nextBtn.classList.remove('cursor-not-allowed', 'bg-slate-300', 'text-slate-500');
+      nextBtn.classList.add('bg-sky-600', 'text-white', 'hover:bg-sky-700');
+    }
+
+    function nextQuestion() {
+      if (currentQuizIndex < quizQuestions.length - 1) {
+        currentQuizIndex++;
+        renderCurrentQuestion();
+      } else {
+        finishQuiz();
+      }
+    }
+
+    // ----------------------------------------------------
+    // 8. 結算、上傳 Google 雲端與展示結果
+    // ----------------------------------------------------
+    function finishQuiz() {
+      studentInfo.endTime = new Date();
+      const timeSpentSec = Math.round((studentInfo.endTime - studentInfo.startTime) / 1000);
+
+      // 隱藏答題區、顯示成績區
+      document.getElementById('quiz-step-running').classList.add('hidden');
+      document.getElementById('quiz-step-result').classList.remove('hidden');
+
+      // 填入總結數據
+      document.getElementById('result-score').innerText = quizScore;
+      document.getElementById('res-name').innerText = studentInfo.name;
+      document.getElementById('res-dept').innerText = studentInfo.dept;
+      document.getElementById('res-id').innerText = studentInfo.id;
+      document.getElementById('res-accuracy').innerText = `${quizScore / 10} / 10 題 (用時約 ${timeSpentSec} 秒)`;
+      document.getElementById('result-time-text').innerText = `作答完成時間：${new Date().toLocaleString('zh-TW')}`;
+
+      // 根據分數評語
+      const trophy = document.getElementById('result-trophy');
+      const statusTitle = document.getElementById('result-status-title');
+      if (quizScore >= 80) {
+        trophy.innerText = '🌟';
+        statusTitle.innerText = '表現優異！專業照護觀念非常完整！';
+      } else if (quizScore >= 60) {
+        trophy.innerText = '👍';
+        statusTitle.innerText = '合格通過！可針對錯題複習照護技巧！';
+      } else {
+        trophy.innerText = '💡';
+        statusTitle.innerText = '再接再厲！建議重新研讀成因與ABC評估！';
+      }
+
+      // 渲染題目檢閱清單
+      renderReviewList();
+
+      // 自動同步至 Google 雲端試算表
+      syncToGoogleCloud(timeSpentSec);
+    }
+
+    function renderReviewList() {
+      const container = document.getElementById('quiz-review-list');
+      container.innerHTML = '';
+
+      userAnswers.forEach((item, index) => {
+        const div = document.createElement('div');
+        div.className = `p-4 rounded-2xl border text-sm ${item.isCorrect ? 'bg-slate-50 border-slate-200' : 'bg-rose-50/50 border-rose-200'}`;
+        div.innerHTML = `
+          <div class="flex items-center justify-between mb-1.5">
+            <span class="font-bold text-slate-800">第 ${index + 1} 題：${item.isCorrect ? '<span class="text-emerald-600 font-bold ml-1">✓ 答對</span>' : '<span class="text-rose-600 font-bold ml-1">✗ 答錯</span>'}</span>
+          </div>
+          <p class="text-slate-700 font-medium mb-2">${item.question}</p>
+          <div class="space-y-1 text-xs">
+            <p><span class="text-slate-500">您的選擇：</span> <span class="${item.isCorrect ? 'text-emerald-700 font-semibold' : 'text-rose-700 font-semibold'}">${item.chosen}</span></p>
+            ${!item.isCorrect ? `<p><span class="text-slate-500">標準解答：</span> <span class="text-emerald-800 font-bold">${item.correctAnswer}</span></p>` : ''}
+            <p class="text-slate-500 pt-1 border-t border-slate-200/60 mt-1.5">💡 重點備註：${item.explanation}</p>
+          </div>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    // 將測驗成績資料送至 Google Apps Script Web App
+    async function syncToGoogleCloud(timeSpentSec) {
+      const statusBox = document.getElementById('cloud-sync-status');
+      
+      const payload = {
+        timestamp: new Date().toISOString(),
+        studentName: studentInfo.name,
+        department: studentInfo.dept,
+        studentId: studentInfo.id,
+        score: quizScore,
+        correctCount: quizScore / 10,
+        totalQuestions: quizQuestions.length,
+        timeSpentSeconds: timeSpentSec
+      };
+
+      if (!teacherGoogleAppScriptUrl) {
+        statusBox.className = "p-4 rounded-2xl mb-8 border border-sky-200 bg-sky-50 text-sky-900 text-sm";
+        statusBox.innerHTML = `
+          <div class="flex items-center gap-2 font-bold mb-1">
+            <i class="fa-solid fa-circle-info text-sky-600"></i> 本機已完成測驗成績紀錄！
+          </div>
+          <p class="text-xs text-sky-800 leading-relaxed">
+            老師若已設定 Google Apps Script Web App 網址，系統會自動非同步推送成績至 Google 試算表。<br>
+            您也可以點擊下方<strong>「下載本機成績表 (CSV)」</strong>將個人成績單存檔備查！
+          </p>
+        `;
+        return;
+      }
+
+      statusBox.className = "p-4 rounded-2xl mb-8 border border-amber-200 bg-amber-50 text-amber-900 text-sm";
+      statusBox.innerHTML = `
+        <div class="flex items-center gap-2 font-bold">
+          <i class="fa-solid fa-spinner fa-spin text-amber-600"></i> 正在將測驗資料同步傳送至老師的 Google 雲端試算表...
+        </div>
+      `;
+
+      try {
+        // 使用 no-cors 或標準 POST 發送至 Google Apps Script
+        await fetch(teacherGoogleAppScriptUrl, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        statusBox.className = "p-4 rounded-2xl mb-8 border border-emerald-200 bg-emerald-50 text-emerald-900 text-sm";
+        statusBox.innerHTML = `
+          <div class="flex items-center gap-2 font-bold mb-1">
+            <i class="fa-solid fa-cloud-arrow-up text-emerald-600"></i> 成功！成績已記錄並同步存入老師的 Google 雲端試算表。
+          </div>
+          <p class="text-xs text-emerald-800">學號 ${studentInfo.id} / ${studentInfo.name} 的成績單已送出完畢。</p>
+        `;
+      } catch (err) {
+        console.error("雲端同步錯誤：", err);
+        statusBox.className = "p-4 rounded-2xl mb-8 border border-rose-200 bg-rose-50 text-rose-900 text-sm";
+        statusBox.innerHTML = `
+          <div class="flex items-center gap-2 font-bold mb-1">
+            <i class="fa-solid fa-circle-exclamation text-rose-600"></i> 雲端發送超時或連線異常
+          </div>
+          <p class="text-xs text-rose-800">請不用擔心，請務必點選下方「下載本機成績表 (CSV)」將成績單保存並寄給授課教師。</p>
+        `;
+      }
+    }
+
+    // 匯出 CSV 成績單給學生保存
+    function downloadScoreReport() {
+      const dateStr = new Date().toLocaleDateString('zh-TW').replace(/\//g, '-');
+      const csvContent = "\uFEFF" + 
+        `學員姓名,科系班級,學生學號,測驗得分,總分,答對題數,總題數,評量時間\n` +
+        `"${studentInfo.name}","${studentInfo.dept}","${studentInfo.id}",${quizScore},100,${quizScore / 10},10,"${new Date().toLocaleString('zh-TW')}"\n\n` +
+        `題號,測驗題目,學生作答,標準答案,是否正確\n` +
+        userAnswers.map((u, i) => `"${i+1}","${u.question.replace(/"/g, '""')}","${u.chosen.replace(/"/g, '""')}","${u.correctAnswer.replace(/"/g, '""')}","${u.isCorrect ? '正確' : '錯誤'}"`).join('\n');
+
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.setAttribute('download', `BPSD測驗成績單_${studentInfo.id}_${studentInfo.name}_${dateStr}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    function retryQuiz() {
+      document.getElementById('quiz-step-result').classList.add('hidden');
+      document.getElementById('quiz-step-student-info').classList.remove('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // 頁面初始化
+    window.addEventListener('DOMContentLoaded', () => {
+      // 載入預設案例 1
+      showCase(1);
+
+      // 若先前有儲存過 GAS 網址則預載
+      if (teacherGoogleAppScriptUrl) {
+        const input = document.getElementById('gas-url-input');
+        if (input) input.value = teacherGoogleAppScriptUrl;
+      }
+    });
+  </script>
+</body>
+</html>
